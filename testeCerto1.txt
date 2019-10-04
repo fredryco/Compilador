@@ -1,0 +1,14 @@
+PROGRAMAINICIO
+    DEFINAINSTRUCAO Piscar COMO
+        INICIO
+            Apagar Lampada
+            Aguarde Ate Robo Pronto
+            Acenda Lampada
+            Aguarde ate Robo Pronto
+        FIM
+    EXECUCAOINICIO
+        Repita 3 VEZES Piscar
+    FIMEXECUCAO
+FIMPROGRAMA
+
+

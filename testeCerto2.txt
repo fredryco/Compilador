@@ -1,0 +1,30 @@
+PROGRAMAINICIO
+    DEFINAINSTRUCAO Acender COMO
+        INICIO
+            repita 
+            Acenda Lampada
+            Aguarde ate Robo Pronto
+            
+        FIM
+        
+    DEFINAINSTRUCAO Apagar COMO
+        INICIO
+            Apagar Lampada
+            Lampada Acessa A Esquerda
+            Aguarde Ate Robo Pronto
+        FIM
+    dwqwqdqw    
+    DEFINAINSTRUCAO Apagar COMO
+        INICIO
+            Apagar Lampada
+            Aguarde Ate Robo Pronto
+            Acenda Lampada
+            Aguarde ate Robo Pronto
+        FIM
+     
+    EXECUCAOINICIO
+        acender
+        apagar
+        
+    FIMEXECUCAO
+FIMPROGRAMA
