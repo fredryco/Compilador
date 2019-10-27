@@ -222,23 +222,66 @@ int popN(Pilha* p,int n,int atual)
 //Coleção das palavras reservadas do programa
 void carregarPalavrasReservadas() {
 	
-		strcpy(palavrasReservadas[0], "DECLARE");
-		strcpy(palavrasReservadas[1], "AS");
-		strcpy(palavrasReservadas[2], "NUMBER");
-		strcpy(palavrasReservadas[3], "LETTER");
-		strcpy(palavrasReservadas[4], "PUT");
-		strcpy(palavrasReservadas[5], "IN");
-		strcpy(palavrasReservadas[6], "IF");
-		strcpy(palavrasReservadas[7], "THEN");
-		strcpy(palavrasReservadas[8], "ELSE");
-		strcpy(palavrasReservadas[9], "FOREACH");
-		strcpy(palavrasReservadas[10], "DO");
-		strcpy(palavrasReservadas[11], "FOR");
-		strcpy(palavrasReservadas[12], "FROM");
-		strcpy(palavrasReservadas[13], "TO");
-		strcpy(palavrasReservadas[14], "RESIZE");
-		strcpy(palavrasReservadas[15], "READ");
-		strcpy(palavrasReservadas[16], "PRINT");
+//		strcpy(palavrasReservadas[0], "DECLARE");
+//		strcpy(palavrasReservadas[1], "AS");
+//		strcpy(palavrasReservadas[2], "NUMBER");
+//		strcpy(palavrasReservadas[3], "LETTER");
+//		strcpy(palavrasReservadas[4], "PUT");
+//		strcpy(palavrasReservadas[5], "IN");
+//		strcpy(palavrasReservadas[6], "IF");
+//		strcpy(palavrasReservadas[7], "THEN");
+//		strcpy(palavrasReservadas[8], "ELSE");
+//		strcpy(palavrasReservadas[9], "FOREACH");
+//		strcpy(palavrasReservadas[10], "DO");
+//		strcpy(palavrasReservadas[11], "FOR");
+//		strcpy(palavrasReservadas[12], "FROM");
+//		strcpy(palavrasReservadas[13], "TO");
+//		strcpy(palavrasReservadas[14], "RESIZE");
+//		strcpy(palavrasReservadas[15], "READ");
+//		strcpy(palavrasReservadas[16], "PRINT");
+		
+		strcpy(palavrasReservadas[0], "programainicio");
+		strcpy(palavrasReservadas[1], "execucaoinicio");
+		strcpy(palavrasReservadas[2], "fimexecucao");
+		strcpy(palavrasReservadas[3], "fimprograma");
+		strcpy(palavrasReservadas[4], "definainstrucao");
+		strcpy(palavrasReservadas[5], "como");
+		strcpy(palavrasReservadas[6], "inicio");
+		strcpy(palavrasReservadas[7], "fim");
+		strcpy(palavrasReservadas[8], "repita");
+		strcpy(palavrasReservadas[9], "vezes");
+		strcpy(palavrasReservadas[10], "fimrepita");
+		strcpy(palavrasReservadas[11], "enquanto");
+		strcpy(palavrasReservadas[12], "faca");
+		strcpy(palavrasReservadas[13], "fimpara");
+		strcpy(palavrasReservadas[14], "se");
+		strcpy(palavrasReservadas[15], "entao");
+		strcpy(palavrasReservadas[16], "fimse");
+		strcpy(palavrasReservadas[17], "senao");
+		strcpy(palavrasReservadas[18], "fimsenao");
+		strcpy(palavrasReservadas[19], "mova");
+		strcpy(palavrasReservadas[20], "passos");
+		strcpy(palavrasReservadas[21], "Vire Para");
+		strcpy(palavrasReservadas[22], "Pare");
+		strcpy(palavrasReservadas[23], "Finalize");
+		strcpy(palavrasReservadas[24], "Apague Lampada");
+		strcpy(palavrasReservadas[25], "Acenda Lampada");
+		strcpy(palavrasReservadas[26], "Aguarde Ate");
+		strcpy(palavrasReservadas[27], "Robo Pronto");
+		strcpy(palavrasReservadas[28], "Robo Ocupado");
+		strcpy(palavrasReservadas[29], "Robo Parado");
+		strcpy(palavrasReservadas[30], "Robo Movimentando");
+		strcpy(palavrasReservadas[31], "Frente Robo Bloqueada");
+		strcpy(palavrasReservadas[32], "Direita Robo Bloqueada");
+		strcpy(palavrasReservadas[33], "Esquerda Robo Bloqueada");
+		strcpy(palavrasReservadas[34], "Lampada Acessa a Frente");
+		strcpy(palavrasReservadas[35], "Lampada Apagada a Frente");
+		strcpy(palavrasReservadas[36], "Lampada Acessa A Esquerda");
+		strcpy(palavrasReservadas[37], "Lampada Apagada A Esquerda");
+		strcpy(palavrasReservadas[38], "Lampada Acessa A Direita");
+		strcpy(palavrasReservadas[39], "Lampada Apagada A Direita");
+		strcpy(palavrasReservadas[40], "esquerda");
+		strcpy(palavrasReservadas[41], "direita");
 }	
 
 Lista *iniciaLista() {
@@ -382,159 +425,159 @@ int executaAnaliseLexica(char *programa, int fSize) {
 				lConectada=l;
 			}
 		}
-		//Varre o programa para encontrar os símbolos <,=,>
-		else if (programa[i] >= 60 && programa[i] <=62) {
-				
-				Lista *l = iniciaLista();
-				l->tipo = 5;
-				j = i;
-				
-				adicionaCaractere(l, programa[j]);
-				l->num++;
-				
-				if(programa[j]==60) {
-					if(programa[j+1]==61 || programa[j+1]==62) {
-						
-						adicionaCaractere(l, programa[j+1]);
-						l->num++;
-						j++;
-					}
-				} 
-				else if(programa[j]==62) {
-					if(programa[j+1]==61) {
-						
-						adicionaCaractere(l, programa[j+1]);
-						l->num++;
-						j++;
-					}
-				}
-				j++;
-				
-				char *tokenImpresso = criaTokken(l);
-								
-				i = j-1;
-				strcpy(tokenImpresso, "\0");
-				
-				if (listaTokens == NULL){
-					listaTokens= l;
-					lConectada= l;
-				} 
-				else if (lConectada->prox==NULL){
-					lConectada->prox=l;
-					lConectada=l;
-				}
-		}
-		//Verificando constante do tipo caractere
-		else if (programa[i] == 39) {
-			
-			Lista *l = iniciaLista();
-			l->tipo = 6;
-			int quant=0;//quantidade de aspas simples.
-			int quant2=0;//quantidade de caracteres, se for uma excessão conta como apenas um caractere.
-			int erro=0;//0 se não encontrou erro, 1 não encontrou erro.
-			j = i;
-			
-			while((programa[j] >= 32 && programa[j] <= 126) && quant<2) {
-				adicionaCaractere(l, programa[j]);
-				l->num++;
-				quant2++;
-				
-				if(programa[j]==34)
-					erro=1;
-				else if(programa[j]==92) {
-					if(programa[j+1]==9 || programa[j+1]==10) {
-						j++;
-						break;	
-					}
-					else if(programa[j+1]==116 || programa[j+1]==110 || programa[j+1]==92 || programa[j+1]==39 || programa[j+1]==34);
-					else { 
-						erro=1;
-						quant2++;
-					}
-					adicionaCaractere(l, programa[j+1]);
-					l->num++;
-					j++;
-				}
-				else if(programa[j]==39)
-					quant++;
-				
-				j++;
-			}
-				
-			char *tokenImpresso = criaTokken(l);
-			
-			if(erro==1 || quant != 2 || quant2 != 3) {
-				erroAnalise = 1;
-				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);
-			}
-			
-			i = j-1;
-			strcpy(tokenImpresso, "\0");
-			
-			if (listaTokens == NULL){
-				listaTokens= l;
-				lConectada= l;
-			} 
-			else if (lConectada->prox==NULL){
-				lConectada->prox=l;
-				lConectada=l;
-			}
-		}
+//		//Varre o programa para encontrar os símbolos <,=,>
+//		else if (programa[i] >= 60 && programa[i] <=62) {
+//				
+//				Lista *l = iniciaLista();
+//				l->tipo = 5;
+//				j = i;
+//				
+//				adicionaCaractere(l, programa[j]);
+//				l->num++;
+//				
+//				if(programa[j]==60) {
+//					if(programa[j+1]==61 || programa[j+1]==62) {
+//						
+//						adicionaCaractere(l, programa[j+1]);
+//						l->num++;
+//						j++;
+//					}
+//				} 
+//				else if(programa[j]==62) {
+//					if(programa[j+1]==61) {
+//						
+//						adicionaCaractere(l, programa[j+1]);
+//						l->num++;
+//						j++;
+//					}
+//				}
+//				j++;
+//				
+//				char *tokenImpresso = criaTokken(l);
+//								
+//				i = j-1;
+//				strcpy(tokenImpresso, "\0");
+//				
+//				if (listaTokens == NULL){
+//					listaTokens= l;
+//					lConectada= l;
+//				} 
+//				else if (lConectada->prox==NULL){
+//					lConectada->prox=l;
+//					lConectada=l;
+//				}
+//		}
+//		//Verificando constante do tipo caractere
+//		else if (programa[i] == 39) {
+//			
+//			Lista *l = iniciaLista();
+//			l->tipo = 6;
+//			int quant=0;//quantidade de aspas simples.
+//			int quant2=0;//quantidade de caracteres, se for uma excessão conta como apenas um caractere.
+//			int erro=0;//0 se não encontrou erro, 1 não encontrou erro.
+//			j = i;
+//			
+//			while((programa[j] >= 32 && programa[j] <= 126) && quant<2) {
+//				adicionaCaractere(l, programa[j]);
+//				l->num++;
+//				quant2++;
+//				
+//				if(programa[j]==34)
+//					erro=1;
+//				else if(programa[j]==92) {
+//					if(programa[j+1]==9 || programa[j+1]==10) {
+//						j++;
+//						break;	
+//					}
+//					else if(programa[j+1]==116 || programa[j+1]==110 || programa[j+1]==92 || programa[j+1]==39 || programa[j+1]==34);
+//					else { 
+//						erro=1;
+//						quant2++;
+//					}
+//					adicionaCaractere(l, programa[j+1]);
+//					l->num++;
+//					j++;
+//				}
+//				else if(programa[j]==39)
+//					quant++;
+//				
+//				j++;
+//			}
+//				
+//			char *tokenImpresso = criaTokken(l);
+//			
+//			if(erro==1 || quant != 2 || quant2 != 3) {
+//				erroAnalise = 1;
+//				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);
+//			}
+//			
+//			i = j-1;
+//			strcpy(tokenImpresso, "\0");
+//			
+//			if (listaTokens == NULL){
+//				listaTokens= l;
+//				lConectada= l;
+//			} 
+//			else if (lConectada->prox==NULL){
+//				lConectada->prox=l;
+//				lConectada=l;
+//			}
+//		}
 		//Verificando constante do tipo string
-		else if (programa[i] == 34) {
-			Lista *l = iniciaLista();
-			int quant=0; //Quantidade de aspas duplas(código 34) encontradas.
-			int quant2=0; //quantidade de caracteres, se for uma excessão conta como apenas um caractere.
-			int erro=0;
-			l->tipo = 7;
-			j = i;
-		
-			while((programa[j] >= 32 && programa[j] <= 126) && quant<2) {
-				adicionaCaractere(l, programa[j]);
-				l->num++;
-				quant2++;
-				
-				if(programa[j]==39)
-					erro=1;
-				else if(programa[j]==92) {
-					if(programa[j+1]==9 || programa[j+1]==10) {
-						j++;
-						break;	
-					}
-					else if(programa[j+1]==116 || programa[j+1]==110 || programa[j+1]==92 || programa[j+1]==39 || programa[j+1]==34);
-					else {
-						erro=1;
-						quant2++;
-					}
-					adicionaCaractere(l, programa[j+1]);
-					l->num++;
-					j++;
-				}
-				else if(programa[j]==34)
-					quant++;
-				
-				j++;
-			}
-		
-			char *tokenImpresso = criaTokken(l);
-			
-			if(erro == 1 || quant2-quant > 256 || quant != 2) {
-				erroAnalise = 1;
-				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);	
-			}
-			
-			i = j-1;
-			strcpy(tokenImpresso, "\0");
-		
-			if (listaTokens == NULL){
-				listaTokens= l;
-				lConectada= l;
-			} 
-			else if (lConectada->prox==NULL){
-				lConectada->prox=l;
-				lConectada=l;
-			}
-		}
+//		else if (programa[i] == 34) {
+//			Lista *l = iniciaLista();
+//			int quant=0; //Quantidade de aspas duplas(código 34) encontradas.
+//			int quant2=0; //quantidade de caracteres, se for uma excessão conta como apenas um caractere.
+//			int erro=0;
+//			l->tipo = 7;
+//			j = i;
+//		
+//			while((programa[j] >= 32 && programa[j] <= 126) && quant<2) {
+//				adicionaCaractere(l, programa[j]);
+//				l->num++;
+//				quant2++;
+//				
+//				if(programa[j]==39)
+//					erro=1;
+//				else if(programa[j]==92) {
+//					if(programa[j+1]==9 || programa[j+1]==10) {
+//						j++;
+//						break;	
+//					}
+//					else if(programa[j+1]==116 || programa[j+1]==110 || programa[j+1]==92 || programa[j+1]==39 || programa[j+1]==34);
+//					else {
+//						erro=1;
+//						quant2++;
+//					}
+//					adicionaCaractere(l, programa[j+1]);
+//					l->num++;
+//					j++;
+//				}
+//				else if(programa[j]==34)
+//					quant++;
+//				
+//				j++;
+//			}
+//		
+//			char *tokenImpresso = criaTokken(l);
+//			
+//			if(erro == 1 || quant2-quant > 256 || quant != 2) {
+//				erroAnalise = 1;
+//				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);	
+//			}
+//			
+//			i = j-1;
+//			strcpy(tokenImpresso, "\0");
+//		
+//			if (listaTokens == NULL){
+//				listaTokens= l;
+//				lConectada= l;
+//			} 
+//			else if (lConectada->prox==NULL){
+//				lConectada->prox=l;
+//				lConectada=l;
+//			}
+//		}
 		else if(programa[i] != 32 && programa[i] != '\t' && programa[i] !='\n' && programa[i] != '\r' && programa[i] > 0) {
 			erroAnalise = 1;
 			printf("LINHA %d: %c\n", linhaAtual, programa[i]);
@@ -563,50 +606,50 @@ int verificaArquivo(char *programa, int fSize)
 
 //Funções da Análise Sintática
 
-int converteTokenInteiro(char *token,int tipo){
-	
-	if(strcasecmp(token ,"%") == 0) return PORCENTAGEM;
-	else if(strcasecmp(token ,"(") == 0) return ABRE_PARENTESE;
-	else if(strcasecmp(token ,")") == 0) return FECHA_PARENTESE;
-	else if(strcasecmp(token ,"*") == 0) return ASTERICO;
-	else if(strcasecmp(token ,"+") == 0) return SOMA;
-	else if(strcasecmp(token ,",") == 0) return VIRGULA;
-	else if(strcasecmp(token ,"-") == 0) return SUBTRACAO;
-	else if(strcasecmp(token ,".") == 0) return PONTO;
-	else if(strcasecmp(token ,"/") == 0) return BARRA;
-	else if(strcasecmp(token ,"<") == 0) return MENOR;
-	else if(strcasecmp(token ,"<=") == 0) return MENOR_IGUAL;
-	else if(strcasecmp(token ,"<>") == 0) return DIFERENTE;
-	else if(strcasecmp(token ,"=") == 0) return IGUAL;
-	else if(strcasecmp(token ,">") == 0) return MAIOR;
-	else if(strcasecmp(token ,">=") == 0) return MAIOR_IGUAL;
-	else if(strcasecmp(token ,"AS") == 0) return AS;
-	else if(strcasecmp(token ,"DECLARE") == 0) return DECLARE;
-	else if(strcasecmp(token ,"DO") == 0) return DO;
-	else if(strcasecmp(token ,"ELSE") == 0) return ELSE;
-	else if(strcasecmp(token ,"FOR") == 0) return FOR;
-	else if(strcasecmp(token ,"FOREACH") == 0) return FOREACH;
-	else if(strcasecmp(token ,"FROM") == 0) return FROM;
-	else if(strcasecmp(token ,"IF") == 0) return IF;
-	else if(strcasecmp(token ,"IN") == 0) return IN;
-	else if(strcasecmp(token ,"LETTER") == 0) return LETTER;
-	else if(strcasecmp(token ,"NUMBER") == 0) return NUMBER;
-	else if(strcasecmp(token ,"PRINT") == 0) return PRINT;
-	else if(strcasecmp(token ,"PUT") == 0) return PUT;
-	else if(strcasecmp(token ,"READ") == 0) return READ;
-	else if(strcasecmp(token ,"RESIZE") == 0) return RESIZE;
-	else if(strcasecmp(token ,"THEN") == 0) return THEN;
-	else if(strcasecmp(token ,"TO") == 0) return TO;
-	else if(strcasecmp(token ,"[") == 0) return ABRE_COLCHETE;
-	else if(strcasecmp(token ,"]") == 0) return FECHA_COLCHETE;
-	else{
-		if(tipo == 6) return CHAR;
-		else if(tipo == 1) return ID;
-		else if(tipo == 4) return NUM;
-		else if(tipo == 7) return STRING;
-	}
-	
-}
+//int converteTokenInteiro(char *token,int tipo){
+//	
+//	if(strcasecmp(token ,"%") == 0) return PORCENTAGEM;
+//	else if(strcasecmp(token ,"(") == 0) return ABRE_PARENTESE;
+//	else if(strcasecmp(token ,")") == 0) return FECHA_PARENTESE;
+//	else if(strcasecmp(token ,"*") == 0) return ASTERICO;
+//	else if(strcasecmp(token ,"+") == 0) return SOMA;
+//	else if(strcasecmp(token ,",") == 0) return VIRGULA;
+//	else if(strcasecmp(token ,"-") == 0) return SUBTRACAO;
+//	else if(strcasecmp(token ,".") == 0) return PONTO;
+//	else if(strcasecmp(token ,"/") == 0) return BARRA;
+//	else if(strcasecmp(token ,"<") == 0) return MENOR;
+//	else if(strcasecmp(token ,"<=") == 0) return MENOR_IGUAL;
+//	else if(strcasecmp(token ,"<>") == 0) return DIFERENTE;
+//	else if(strcasecmp(token ,"=") == 0) return IGUAL;
+//	else if(strcasecmp(token ,">") == 0) return MAIOR;
+//	else if(strcasecmp(token ,">=") == 0) return MAIOR_IGUAL;
+//	else if(strcasecmp(token ,"AS") == 0) return AS;
+//	else if(strcasecmp(token ,"DECLARE") == 0) return DECLARE;
+//	else if(strcasecmp(token ,"DO") == 0) return DO;
+//	else if(strcasecmp(token ,"ELSE") == 0) return ELSE;
+//	else if(strcasecmp(token ,"FOR") == 0) return FOR;
+//	else if(strcasecmp(token ,"FOREACH") == 0) return FOREACH;
+//	else if(strcasecmp(token ,"FROM") == 0) return FROM;
+//	else if(strcasecmp(token ,"IF") == 0) return IF;
+//	else if(strcasecmp(token ,"IN") == 0) return IN;
+//	else if(strcasecmp(token ,"LETTER") == 0) return LETTER;
+//	else if(strcasecmp(token ,"NUMBER") == 0) return NUMBER;
+//	else if(strcasecmp(token ,"PRINT") == 0) return PRINT;
+//	else if(strcasecmp(token ,"PUT") == 0) return PUT;
+//	else if(strcasecmp(token ,"READ") == 0) return READ;
+//	else if(strcasecmp(token ,"RESIZE") == 0) return RESIZE;
+//	else if(strcasecmp(token ,"THEN") == 0) return THEN;
+//	else if(strcasecmp(token ,"TO") == 0) return TO;
+//	else if(strcasecmp(token ,"[") == 0) return ABRE_COLCHETE;
+//	else if(strcasecmp(token ,"]") == 0) return FECHA_COLCHETE;
+//	else{
+//		if(tipo == 6) return CHAR;
+//		else if(tipo == 1) return ID;
+//		else if(tipo == 4) return NUM;
+//		else if(tipo == 7) return STRING;
+//	}
+//	
+//}
 
 int slr1(Pilha* aux, int tab[116][60], int red[53][2]){
 	
@@ -839,7 +882,9 @@ void imprimeVariaveis(ListaVar* lv)
 {
 	ListaVar* p; 
 	for (p = lv; p != NULL; p = p->prox)
-		printf("info = %s %d %d %d\n", p->valor,p->tamanho,p->vetAlocado,p->contexto);
+	{
+	}
+	//	printf("info = %s %d %d %d\n", p->valor,p->tamanho,p->vetAlocado,p->contexto);
 }
 
 ListaVar* removeContexto(ListaVar* lv, int contex) 
@@ -1086,7 +1131,7 @@ int executaAnaliseSemantica(Pilha* p)
 	
 	do{
 		elem = pop(p);
-		if(elem == DECLARE) {
+		if(elem == DECLAREnmjikn,lmjhgfgbhkjhytrrhjkjhyt) {
 			lst = verificaDeclaracao(p,contexto,elem,lst);
 			if(lst==NULL) return 0;
 		}
