@@ -1,0 +1,39 @@
+r0 #SS -> #S $
+r1 #S -> #programa #S
+r2 #S -> &
+r3 #programa -> PROGRAMAINICIO [#declaracao] EXECUCAOINICIO #comando FIMEXECUCAO FIMPROGRAMA
+r4 #declaracao -> DEFINAINSTRUCAO #identificador COMO #comando 
+r5 #identificador -> #letra [#letra][#numero]
+r7 #bloco -> INICIO #comando [#comando] FIM
+r9 #comando -> #bloco
+r10 #comando -> #iteracao
+r11 #comando -> #laco
+r12 #comando -> #condicional
+r13 #comando -> #instrucao
+r14 #iteracao -> REPITA #numero VEZES #comando FIMREPITA
+r15 #laco -> ENQUANTO #condicao FACA #comando FIMPARA
+r16 #condicional -> SE #condicao ENTAO #comando FIMSE [ SENAO #comando FIMSENAO ]
+r17 #instrucao -> MOVA [#numero PASSOS]
+r18 #instrucao -> VIRE PARA #sentido
+r19 #instrucao -> #identificador
+r20 #instrucao -> PARE
+r21 #instrucao -> FINALIZE
+r22 #instrucao -> APAQUE LAMPADA
+r23 #instrucao -> ACENDA LAMPADA
+r24 #instrucao -> AGUARDE ATE #condicao
+r25 #condicao -> ROBO PRONTO
+r26 #condicao -> ROBO OCUPADO
+r27 #condicao -> ROBO MOVIMENTANDO
+r28 #condicao -> FRENTE ROBO BLOQUEADO
+r29 #condicao -> DIREITA ROBO BLOQUEADO
+r30 #condicao -> ESQUERDA ROBO BLOQUEADO
+r31 #condicao -> LAMPADA ACESA A FRENTE
+r32 #condicao -> LAMPADA APAGADA A FRENTE
+r33 #condicao -> LAMPADA ACESA A ESQUERDA
+r34 #condicao -> LAMPADA APAGADA A ESQUERDA
+r35 #condicao -> LAMPADA ACESA A DIREITA
+r36 #condicao -> LAMPADA APAGADA A DIREITA
+r37 #numero -> #digito
+r38 #sentido -> DIREITA
+r39 #sentido -> ESQUERDA
+
