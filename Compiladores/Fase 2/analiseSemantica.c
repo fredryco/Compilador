@@ -9,66 +9,60 @@
 //Lista de Defines para os tokens
 
 //Terminais
-#define FIM_ARQUIVO 0
-#define PORCENTAGEM 1
-#define ABRE_PARENTESE 2
-#define FECHA_PARENTESE 3
-#define ASTERICO 4
-#define SOMA 5
-#define VIRGULA 6
-#define SUBTRACAO 7
-#define PONTO 8
-#define BARRA 9
-#define MENOR 10
-#define MENOR_IGUAL 11
-#define DIFERENTE 12
-#define IGUAL 13
-#define MAIOR 14
-#define MAIOR_IGUAL 15
-#define AS 16
-#define DECLARE 17
-#define DO 18
-#define ELSE 19
-#define FOR 20
-#define FOREACH 21
-#define FROM 22
-#define IF 23
-#define IN 24
-#define LETTER 25
-#define NUMBER 26
-#define PRINT 27
-#define PUT 28
-#define READ 29
-#define RESIZE 30
-#define THEN 31
-#define TO 32
-#define ABRE_COLCHETE 33
-#define FECHA_COLCHETE 34
-#define CHAR 35
-#define ID 36
-#define NUM 37
-#define STRING 38
+#define PROGRAMAINICIO 0
+#define EXECUCAOINICIO 1
+#define FIMEXECUCAO 2
+#define FIMPROGRAMA 3
+#define DEFINAINSTRUCAO 4
+#define COMO 5
+#define INICIO 6
+#define FIM 7
+#define REPITA 8
+#define VEZES 9
+#define FIMREPITA 10
+#define ENQUANTO 11
+#define FACA 12
+#define FIMPARA 13
+#define SE 14
+#define ENTAO 15
+#define FIMSE 16
+#define MOVA 17
+#define PASSOS 18
+#define VIRE_PARA 19
+#define PARE 20
+#define FINALIZE 21
+#define APAQUE_LAMPADA 22
+#define ACENDA_LAMPADA 23
+#define AGUARDE_ATE 24
+#define ROBO_PRONTO 25
+#define ROBO_OCUPADO 26
+#define ROBO_MOVIMENTANDO 27
+#define FRENTE_ROBO_BLOQUEADO 28
+#define DIREITA_ROBO_BLOQUEADO 29
+#define ESQUERDA_ROBO_BLOQUEADO 30
+#define LAMPADA_ACESA_A_FRENTE 31
+#define LAMPADA_APAGADA_A_FRENTE 32
+#define LAMPADA_ACESA_A_ESQUERDA 33
+#define LAMPADA_APAGADA_A_ESQUERDA 34
+#define LAMPADA_ACESA_A_DIREITA 35
+#define LAMPADA_APAGADA_A_DIREITA 36
+#define DIREITA 37
+#define ESQUERDA 38
 //Não Terminais
 #define S 39
 #define SS 40
-#define ALOCACAO 41
-#define ATRIBUICAO 42
+#define PROGRAMA 41
+#define COMANDO 42
 #define DECLARACAO 43
-#define DESVIO 44
-#define ELSE_NAO_TERMINAL 45
-#define EXPR_ARIT 46
-#define EXPR_ARIT2 47
-#define EXPR_ARIT3 48
-#define EXPR_ARIT4 49
-#define EXPR_REL 50
-#define ID1 51
-#define ID2 52
-#define IDVET 53
-#define LER_IMRPIME 54
-#define LISTA_IDS 55
-#define LOOP 56
-#define OPR_REL 57
-#define TIPO 58
+#define BLOCO 44
+#define ITERACAO 45
+#define LACO 46
+#define CONDICIONAL 47
+#define INSTRUCAO 48
+#define NUMERO 49
+#define SENTIDO 50
+#define LETRA 51
+
 
 
 //Estruturas para Análise Léxica
@@ -104,7 +98,7 @@ typedef struct listaVar
 	int contexto, tamanho,vetAlocado;
 	char *valor,*tipo;
 	struct listaVar *prox;
-	
+
 }ListaVar;
 
 Lista *iniciaLista();
@@ -148,12 +142,12 @@ void libera(Pilha* p)
 }
 
 //Cria uma pilha
-Pilha* cria(void) 
+Pilha* cria(void)
 {
 	Pilha* p;
 	p = (Pilha*)malloc(sizeof(Pilha));
 	p->topo = NULL;
-	return p;	
+	return p;
 }
 
 //Insere um elemento na pilha
@@ -164,7 +158,7 @@ void push(Pilha* p,int v,char *vl){
 	strcpy(aux->valor,vl);
 	aux->anterior = p->topo;
 	p->topo = aux;
-}	
+}
 
 //Desempilha um elemento da pilha
 int pop(Pilha* p)
@@ -175,7 +169,7 @@ int pop(Pilha* p)
 		exit(1);
 	}
 	v = p->topo->elem;
-	
+
 	aux = p->topo;
 	p->topo = aux->anterior;
 	free(aux);
@@ -203,7 +197,7 @@ int popN(Pilha* p,int n,int atual)
 	int v, i;
 	Dado* aux;
 	if(n==0) return atual;
-	
+
 	for(i=0;i<n;i++)
 	{
 		if (vazia(p)) {
@@ -221,25 +215,7 @@ int popN(Pilha* p,int n,int atual)
 
 //Coleção das palavras reservadas do programa
 void carregarPalavrasReservadas() {
-	
-//		strcpy(palavrasReservadas[0], "DECLARE");
-//		strcpy(palavrasReservadas[1], "AS");
-//		strcpy(palavrasReservadas[2], "NUMBER");
-//		strcpy(palavrasReservadas[3], "LETTER");
-//		strcpy(palavrasReservadas[4], "PUT");
-//		strcpy(palavrasReservadas[5], "IN");
-//		strcpy(palavrasReservadas[6], "IF");
-//		strcpy(palavrasReservadas[7], "THEN");
-//		strcpy(palavrasReservadas[8], "ELSE");
-//		strcpy(palavrasReservadas[9], "FOREACH");
-//		strcpy(palavrasReservadas[10], "DO");
-//		strcpy(palavrasReservadas[11], "FOR");
-//		strcpy(palavrasReservadas[12], "FROM");
-//		strcpy(palavrasReservadas[13], "TO");
-//		strcpy(palavrasReservadas[14], "RESIZE");
-//		strcpy(palavrasReservadas[15], "READ");
-//		strcpy(palavrasReservadas[16], "PRINT");
-		
+
 		strcpy(palavrasReservadas[0], "programainicio");
 		strcpy(palavrasReservadas[1], "execucaoinicio");
 		strcpy(palavrasReservadas[2], "fimexecucao");
@@ -282,7 +258,7 @@ void carregarPalavrasReservadas() {
 		strcpy(palavrasReservadas[39], "Lampada Apagada A Direita");
 		strcpy(palavrasReservadas[40], "esquerda");
 		strcpy(palavrasReservadas[41], "direita");
-}	
+}
 
 Lista *iniciaLista() {
 	Lista *l = (Lista*)malloc(sizeof(Lista));
@@ -297,17 +273,17 @@ void adicionaCaractere(Lista *l, char c) {
 	No *n = (No*)malloc(sizeof(No));
 	n->caractere = c;
 	n->prox = NULL;
-	
+
 	if(l->Primeiro == NULL)	{
 		l->Primeiro = n;
 		return;
 	}
-	
+
 	No *Aux = l->Primeiro;
-	
+
 	while(Aux->prox != NULL)
 		Aux = Aux->prox;
-	
+
 	Aux->prox = n;
 }
 
@@ -316,50 +292,50 @@ char* criaTokken(Lista *l) {
 	No *caractere = l->Primeiro;
 	char *token = (char*)malloc(l->num*sizeof(char));
 	strcpy(token, "\0");
-	
+
 	while(caractere != NULL) {
 		strcat(token,&caractere->caractere);
 		strcat(token,"\0");
 		caractere = caractere->prox;
-	} 
+	}
 	return token;
 }
 
 //Inicia análise lexica, recebendo como parâmetro o programada e o fsize(quantidade de caracteres).
-int executaAnaliseLexica(char *programa, int fSize) {	
-	
+int executaAnaliseLexica(char *programa, int fSize) {
+
 	Lista* lConectada=(Lista*)malloc(sizeof(Lista));
 	int i=0;
 	int j;
 	int k;
 	int linhaAtual = 1;
 	int erroAnalise = 0;
-	
+
 	while(i < fSize) {
 		//Verificando se é palavra reservada ou identificador
 		if((programa[i] >= 65 && programa[i] <= 90) || (programa[i] >= 97 && programa[i] <= 122)) {
 			Lista *l = iniciaLista();
 			l->tipo = 1;
 			j = i;
-			
+
 			while((programa[j] >= 65 && programa[j] <= 90) || (programa[j] >= 97 && programa[j] <= 122) || (programa[j] >= 48 && programa[j] <= 57)) {
 				adicionaCaractere(l, programa[j]);
 				l->num++;
 				j++;
 			}
-			
+
 			char *tokenImpresso = criaTokken(l);
-			
+
 			for(k=0; k < 17; k++) {
 				if(strcasecmp(tokenImpresso, palavrasReservadas[k]) == 0) {
 					l->tipo = 2;
 					break;
 				}
 			}
-		
+
 			i = j-1;
 			strcpy(tokenImpresso, "\0");
-			
+
 			if (listaTokens == NULL){
 				listaTokens= l;
 				lConectada= l;
@@ -367,7 +343,7 @@ int executaAnaliseLexica(char *programa, int fSize) {
 				lConectada->prox=l;
 				lConectada=l;
 			}
-		}			
+		}
 		//Verificando se é um dos caracteres especiais: +-/%*()[],.
 		else if (((programa[i] >= 40) && (programa[i] <= 47)) || (programa[i] == 37) || (programa[i] == 91 ) || (programa[i] == 93 )) {
 			Lista *l = iniciaLista();
@@ -377,49 +353,49 @@ int executaAnaliseLexica(char *programa, int fSize) {
 			l->num++;
 			j++;
 			i = j-1;
-			
+
 			if (listaTokens == NULL){
 				listaTokens= l;
 				lConectada= l;
-			} 
+			}
 			else if (lConectada->prox==NULL){
 				lConectada->prox=l;
 				lConectada=l;
 			}
 		}
-		
-		//Verificando se é numero 
-		else if(programa[i] >= 48 && programa[i] <= 57) {				
+
+		//Verificando se é numero
+		else if(programa[i] >= 48 && programa[i] <= 57) {
 			Lista *l = iniciaLista();
 			l->tipo = 4;
 			int erro = 0;
 			int quant=0;
 			j = i;
-			
+
 			while((programa[j] >=97 && programa[j] <= 122 ) || (programa[j] >= 48 && programa[j] <= 57) || (programa[j] >= 65 && programa[j] <= 90)) {
 				if((programa[j] < 48 || programa[j] > 57))
 					erro = 1;
 				else
 					quant++;
-				
+
 				adicionaCaractere(l, programa[j]);
 				l->num++;
 				j++;
 			}
-			
+
 			char *tokenImpresso = criaTokken(l);
-		
+
 			if(erro==1 || quant > 10) {
 				erroAnalise = 1;
 				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);
 			}
 			i = j-1;
 			strcpy(tokenImpresso, "\0");
-			
+
 			if (listaTokens == NULL){
 				listaTokens= l;
 				lConectada= l;
-			} 
+			}
 			else if (lConectada->prox==NULL){
 				lConectada->prox=l;
 				lConectada=l;
@@ -427,41 +403,41 @@ int executaAnaliseLexica(char *programa, int fSize) {
 		}
 //		//Varre o programa para encontrar os símbolos <,=,>
 //		else if (programa[i] >= 60 && programa[i] <=62) {
-//				
+//
 //				Lista *l = iniciaLista();
 //				l->tipo = 5;
 //				j = i;
-//				
+//
 //				adicionaCaractere(l, programa[j]);
 //				l->num++;
-//				
+//
 //				if(programa[j]==60) {
 //					if(programa[j+1]==61 || programa[j+1]==62) {
-//						
+//
 //						adicionaCaractere(l, programa[j+1]);
 //						l->num++;
 //						j++;
 //					}
-//				} 
+//				}
 //				else if(programa[j]==62) {
 //					if(programa[j+1]==61) {
-//						
+//
 //						adicionaCaractere(l, programa[j+1]);
 //						l->num++;
 //						j++;
 //					}
 //				}
 //				j++;
-//				
+//
 //				char *tokenImpresso = criaTokken(l);
-//								
+//
 //				i = j-1;
 //				strcpy(tokenImpresso, "\0");
-//				
+//
 //				if (listaTokens == NULL){
 //					listaTokens= l;
 //					lConectada= l;
-//				} 
+//				}
 //				else if (lConectada->prox==NULL){
 //					lConectada->prox=l;
 //					lConectada=l;
@@ -469,28 +445,28 @@ int executaAnaliseLexica(char *programa, int fSize) {
 //		}
 //		//Verificando constante do tipo caractere
 //		else if (programa[i] == 39) {
-//			
+//
 //			Lista *l = iniciaLista();
 //			l->tipo = 6;
 //			int quant=0;//quantidade de aspas simples.
 //			int quant2=0;//quantidade de caracteres, se for uma excessão conta como apenas um caractere.
 //			int erro=0;//0 se não encontrou erro, 1 não encontrou erro.
 //			j = i;
-//			
+//
 //			while((programa[j] >= 32 && programa[j] <= 126) && quant<2) {
 //				adicionaCaractere(l, programa[j]);
 //				l->num++;
 //				quant2++;
-//				
+//
 //				if(programa[j]==34)
 //					erro=1;
 //				else if(programa[j]==92) {
 //					if(programa[j+1]==9 || programa[j+1]==10) {
 //						j++;
-//						break;	
+//						break;
 //					}
 //					else if(programa[j+1]==116 || programa[j+1]==110 || programa[j+1]==92 || programa[j+1]==39 || programa[j+1]==34);
-//					else { 
+//					else {
 //						erro=1;
 //						quant2++;
 //					}
@@ -500,24 +476,24 @@ int executaAnaliseLexica(char *programa, int fSize) {
 //				}
 //				else if(programa[j]==39)
 //					quant++;
-//				
+//
 //				j++;
 //			}
-//				
+//
 //			char *tokenImpresso = criaTokken(l);
-//			
+//
 //			if(erro==1 || quant != 2 || quant2 != 3) {
 //				erroAnalise = 1;
 //				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);
 //			}
-//			
+//
 //			i = j-1;
 //			strcpy(tokenImpresso, "\0");
-//			
+//
 //			if (listaTokens == NULL){
 //				listaTokens= l;
 //				lConectada= l;
-//			} 
+//			}
 //			else if (lConectada->prox==NULL){
 //				lConectada->prox=l;
 //				lConectada=l;
@@ -531,18 +507,18 @@ int executaAnaliseLexica(char *programa, int fSize) {
 //			int erro=0;
 //			l->tipo = 7;
 //			j = i;
-//		
+//
 //			while((programa[j] >= 32 && programa[j] <= 126) && quant<2) {
 //				adicionaCaractere(l, programa[j]);
 //				l->num++;
 //				quant2++;
-//				
+//
 //				if(programa[j]==39)
 //					erro=1;
 //				else if(programa[j]==92) {
 //					if(programa[j+1]==9 || programa[j+1]==10) {
 //						j++;
-//						break;	
+//						break;
 //					}
 //					else if(programa[j+1]==116 || programa[j+1]==110 || programa[j+1]==92 || programa[j+1]==39 || programa[j+1]==34);
 //					else {
@@ -555,24 +531,24 @@ int executaAnaliseLexica(char *programa, int fSize) {
 //				}
 //				else if(programa[j]==34)
 //					quant++;
-//				
+//
 //				j++;
 //			}
-//		
+//
 //			char *tokenImpresso = criaTokken(l);
-//			
+//
 //			if(erro == 1 || quant2-quant > 256 || quant != 2) {
 //				erroAnalise = 1;
-//				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);	
+//				printf("LINHA %d: %s\n", linhaAtual, tokenImpresso);
 //			}
-//			
+//
 //			i = j-1;
 //			strcpy(tokenImpresso, "\0");
-//		
+//
 //			if (listaTokens == NULL){
 //				listaTokens= l;
 //				lConectada= l;
-//			} 
+//			}
 //			else if (lConectada->prox==NULL){
 //				lConectada->prox=l;
 //				lConectada=l;
@@ -582,20 +558,20 @@ int executaAnaliseLexica(char *programa, int fSize) {
 			erroAnalise = 1;
 			printf("LINHA %d: %c\n", linhaAtual, programa[i]);
 		}
-		
+
 		else if(programa[i] == '\n')
 			linhaAtual++;
-		
+
 		//incrementa para o próximo caractere do programa
 		i++;
 	}
-	return erroAnalise;		
+	return erroAnalise;
 }
 
 int verificaArquivo(char *programa, int fSize)
 {
 	int i=0;
-	
+
 	while(i < fSize){
 		if((programa[i] !=  9) && (programa[i] != 10) && (programa[i] < 32 || programa[i] > 126))
 			return -1;
@@ -607,7 +583,7 @@ int verificaArquivo(char *programa, int fSize)
 //Funções da Análise Sintática
 
 //int converteTokenInteiro(char *token,int tipo){
-//	
+//
 //	if(strcasecmp(token ,"%") == 0) return PORCENTAGEM;
 //	else if(strcasecmp(token ,"(") == 0) return ABRE_PARENTESE;
 //	else if(strcasecmp(token ,")") == 0) return FECHA_PARENTESE;
@@ -648,22 +624,22 @@ int verificaArquivo(char *programa, int fSize)
 //		else if(tipo == 4) return NUM;
 //		else if(tipo == 7) return STRING;
 //	}
-//	
+//
 //}
 
 int slr1(Pilha* aux, int tab[116][60], int red[53][2]){
-	
+
 	int atual = 0,elem,acao;
 	Pilha* p2 = cria();
 	char *str = (char*)malloc(listaTokens->num*sizeof(char));
-	
+
 	for(;;){
-		
+
 		strcpy(str,aux->topo->valor);
 		elem = pop(aux);
-		
+
 		acao = tab[atual][elem];
-		
+
 		if(acao == -INT_MAX)
 			return 0;
 		else if(acao == INT_MAX)
@@ -686,36 +662,36 @@ Pilha* executaAnaliseSintatica()
    Pilha* aux = cria();
    Pilha* aux2 = cria();
    int elem;
-   
+
    Lista *l;
    char *token = (char*)malloc(listaTokens->num*sizeof(char));
    char *str;
    int tokenAux,prim=0;
    strcpy(token, "\0");
-   	
+
    for (l = listaTokens; l != NULL; l = l->prox)
    {
-		while(l->Primeiro != NULL){	
+		while(l->Primeiro != NULL){
 			strcat(token,&l->Primeiro->caractere);
 			strcat(token,"\0");
 			l->Primeiro = l->Primeiro->prox;
 		}
-		
+
 		push(p,converteTokenInteiro(token,l->tipo),token);
 		strcpy(token, "\0");
 	}
 	//Empilha final da da pilha
 	push(p,0,"");
-	
+
 	do{
 		strcpy(token,p->topo->valor);
 		elem = pop(p);
 		push(aux,elem,token);
 		push(aux2,elem,token);
-		
+
 	} while(!vazia(p));
 	libera(p);
-	
+
 	int tab[118][60] = {
 	{8,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-9,-INT_MAX,-INT_MAX,-13,-14,-INT_MAX,-12,-INT_MAX,-INT_MAX,-INT_MAX,-16,-11,-15,-10,-INT_MAX,-INT_MAX,-INT_MAX,8,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-2,-1,-4,-5,-3,-6,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-8,-INT_MAX,-7,-INT_MAX,-INT_MAX},
 	{INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX,-INT_MAX},
@@ -846,22 +822,22 @@ Pilha* executaAnaliseSintatica()
 		{57,1},{44,7},{45,4},{45,0},{56,10},{56,8},{54,3},{54,3},
 		{52,1},{52,1},{52,1},{52,1}
 	};
-	
+
 	if(slr1(aux,tab,red)==0) return NULL;
 	else return aux2;
-	
+
 }
 
 //Funções para Análise Semãntica
 
-ListaVar* criaListaVar(void) 
+ListaVar* criaListaVar(void)
 {
 	return NULL;
 }
 
-ListaVar* insereListaVar(ListaVar* lv, int contex, char *val, char *type,int tam) 
+ListaVar* insereListaVar(ListaVar* lv, int contex, char *val, char *type,int tam)
 {
-	 ListaVar* novo = (ListaVar*) malloc(sizeof(ListaVar)); 
+	 ListaVar* novo = (ListaVar*) malloc(sizeof(ListaVar));
 	 novo->valor = (char*)malloc(listaTokens->num*sizeof(char));
 	 novo->tipo = (char*)malloc(listaTokens->num*sizeof(char));
 	 novo->contexto = contex;
@@ -873,44 +849,44 @@ ListaVar* insereListaVar(ListaVar* lv, int contex, char *val, char *type,int tam
 	 return novo;
 }
 
-int listaVazia(ListaVar* lv) 
+int listaVazia(ListaVar* lv)
 {
 	return (lv == NULL);
 }
 
-void imprimeVariaveis(ListaVar* lv) 
+void imprimeVariaveis(ListaVar* lv)
 {
-	ListaVar* p; 
+	ListaVar* p;
 	for (p = lv; p != NULL; p = p->prox)
 	{
 	}
 	//	printf("info = %s %d %d %d\n", p->valor,p->tamanho,p->vetAlocado,p->contexto);
 }
 
-ListaVar* removeContexto(ListaVar* lv, int contex) 
+ListaVar* removeContexto(ListaVar* lv, int contex)
 {
 	ListaVar *p,*q;
 	for (p=lv; p!=NULL; p=p->prox) {
 		if(p->contexto	== contex) {
 			p->contexto = -1;
-		} 
+		}
 	}
-	 	 
+
 	return lv;
-}	
-	
-int buscaTamanhoVar(ListaVar* lv, char *val) 
-{ 
+}
+
+int buscaTamanhoVar(ListaVar* lv, char *val)
+{
 	 ListaVar* p;
-	 for (p=lv; p!=NULL; p=p->prox) 
+	 for (p=lv; p!=NULL; p=p->prox)
 		if (strcasecmp(p->valor,val)==0 && (p->contexto != -1)) {
 			return p->tamanho;
 		}
-	 	 
+
 	return 0;
 }
-int verificaVetorAlocado(ListaVar* lv, char *val) 
-{ 
+int verificaVetorAlocado(ListaVar* lv, char *val)
+{
 	 ListaVar* p;
 	 for (p=lv; p!=NULL; p=p->prox) {
 		if (strcasecmp(p->valor,val)==0 && (p->contexto != -1)) {
@@ -926,54 +902,54 @@ ListaVar* insereTipoEmListaVar(ListaVar* lv,char *type){
 	 for (p=lv; p!=NULL; p=p->prox) {
 		strcpy(p->tipo,type);
 	}
-	 	 
+
 	return lv;
 }
 
 ListaVar* verificaDeclaracao(Pilha* aux, int contex,int elem,ListaVar* lst) {
-	
+
 	char *var = (char*)malloc(1000*sizeof(char));
 	char *str = (char*)malloc(1000*sizeof(char));
 	int tam;
-	
+
 	while(elem != PONTO) {
-		
+
 		if(elem == ABRE_COLCHETE) {
 			tam++;
 			elem = pop(aux);
 			tam++;
 		}
 		else if(elem == VIRGULA || elem == AS) {
-			
+
 			if(buscaTamanhoVar(lst,var)==0)
 				lst = insereListaVar(lst,contex,var,"",tam);
 			else {
-				//if(verificaContexto(lst,var,contex)==0) 
+				//if(verificaContexto(lst,var,contex)==0)
 				return NULL;
 			}
 			strcpy(str,"\0");
 			strcpy(var,"\0");
 			tam=0;
 		}
-		else if(elem == ID) { 
+		else if(elem == ID) {
 			strcat(var,str);
 			tam++;
 		}
-		
+
 		strcpy(str,aux->topo->valor);
 		elem = pop(aux);
-	}	
-	
+	}
+
 	return lst;
 }
 
 //----Verifica atribuicao de variáveis----
 ListaVar* verificaAtribuicao(Pilha* aux, int contex,int elem,ListaVar* lst) {
-	
-	
+
+
 	char *var = (char*)malloc(1000*sizeof(char));
 	int tamVar;
-	
+
 	while(elem != PONTO) {
 		if(elem == ID) {
 			tamVar = buscaTamanhoVar(lst,var);
@@ -983,8 +959,8 @@ ListaVar* verificaAtribuicao(Pilha* aux, int contex,int elem,ListaVar* lst) {
 				if(elem == PONTO) break;
 				else if(elem == ABRE_COLCHETE) return NULL;
 			}
-			else if(tamVar==3){ 
-				if(verificaVetorAlocado(lst,var)==0) 
+			else if(tamVar==3){
+				if(verificaVetorAlocado(lst,var)==0)
 					return NULL;
 				elem = pop(aux);
 				if(elem != ABRE_COLCHETE) return NULL;
@@ -993,19 +969,19 @@ ListaVar* verificaAtribuicao(Pilha* aux, int contex,int elem,ListaVar* lst) {
 		strcpy(var,aux->topo->valor);
 		elem = pop(aux);
 	}
-	//imprimeVariaveis(lst);	
+	//imprimeVariaveis(lst);
 	return lst;
-	
+
 }
 
 //----Verifica alocação de vetores----
 ListaVar* alocaVetor(ListaVar* lv,char *val){
-	
+
 	ListaVar* p;
 	 for (p=lv; p!=NULL; p=p->prox) {
-		
+
 		if (strcasecmp(p->valor,val)==0){
-			
+
 			p->vetAlocado = 1;
 	 	}
 	}
@@ -1013,9 +989,9 @@ ListaVar* alocaVetor(ListaVar* lv,char *val){
 }
 
 ListaVar* verificaAlocacao(Pilha* aux, int contex,int elem,ListaVar* lst) {
-	
+
 	char *var = (char*)malloc(1000*sizeof(char));
-	
+
 	while(elem != PONTO) {
 		if(elem == ID) {
 			if(buscaTamanhoVar(lst,var)!=3)
@@ -1025,17 +1001,17 @@ ListaVar* verificaAlocacao(Pilha* aux, int contex,int elem,ListaVar* lst) {
 		}
 		strcpy(var,aux->topo->valor);
 		elem = pop(aux);
-	}	
-	
+	}
+
 	return lst;
 }
 
 //----Verifica Leitura e impressão----
 ListaVar* verificaIo(Pilha* aux, int contex,int elem,ListaVar* lst) {
-	
+
 	char *var = (char*)malloc(1000*sizeof(char));
 	int tamVar;
-	
+
 	while(elem != PONTO) {
 		if(elem == ID) {
 			tamVar = buscaTamanhoVar(lst,var);
@@ -1045,8 +1021,8 @@ ListaVar* verificaIo(Pilha* aux, int contex,int elem,ListaVar* lst) {
 				if(elem == PONTO) break;
 				else if(elem == ABRE_COLCHETE) return NULL;
 			}
-			else if(tamVar==3){ 
-				if(verificaVetorAlocado(lst,var)==0) 
+			else if(tamVar==3){
+				if(verificaVetorAlocado(lst,var)==0)
 					return NULL;
 				elem = pop(aux);
 				if(elem != ABRE_COLCHETE) return NULL;
@@ -1054,28 +1030,28 @@ ListaVar* verificaIo(Pilha* aux, int contex,int elem,ListaVar* lst) {
 		}
 		strcpy(var,aux->topo->valor);
 		elem = pop(aux);
-	}	
-	
+	}
+
 	return lst;
 }
 
 //----Verifica Desvio Condicional e Loop----
 ListaVar* verificaDesvioLoop(Pilha* aux, int contex,int elem,ListaVar* lst) {
-	
+
 	char *var = (char*)malloc(1000*sizeof(char));
 	int tamVar;
-	
+
 	while(elem != ABRE_COLCHETE) {
 		if(elem == ID) {
 			tamVar = buscaTamanhoVar(lst,var);
-			if(tamVar==0) 
+			if(tamVar==0)
 				return NULL;
 			else if(tamVar==1){
 				elem = pop(aux);
 				if(elem == ABRE_COLCHETE) return NULL;
 			}
-			else if(tamVar==3){ 
-				if(verificaVetorAlocado(lst,var)==0) 
+			else if(tamVar==3){
+				if(verificaVetorAlocado(lst,var)==0)
 					return NULL;
 				elem = pop(aux);
 				if(elem != ABRE_COLCHETE) return NULL;
@@ -1083,28 +1059,28 @@ ListaVar* verificaDesvioLoop(Pilha* aux, int contex,int elem,ListaVar* lst) {
 		}
 		strcpy(var,aux->topo->valor);
 		elem = pop(aux);
-	}	
-	
+	}
+
 	return lst;
 }
 
 //----Verifica Loop Vetorial----
 ListaVar* verificaLoopVetorial(Pilha* aux, int contex,int elem,ListaVar* lst) {
-	
+
 	char *var = (char*)malloc(1000*sizeof(char));
 	int tamVar;
-		
+
 	while(elem != ABRE_COLCHETE) {
 		if(elem == ID) {
-			
+
 			tamVar = buscaTamanhoVar(lst,var);
-			if(tamVar==0) 
+			if(tamVar==0)
 				return NULL;
 			else if(tamVar==1){
 				elem = pop(aux);
 				if(elem == ABRE_COLCHETE) return NULL;
 			}
-			else if(tamVar==3){ 
+			else if(tamVar==3){
 				if(verificaVetorAlocado(lst,var)==0) return NULL;
 				elem = pop(aux);
 				if(elem != ABRE_COLCHETE) return NULL;
@@ -1119,16 +1095,16 @@ ListaVar* verificaLoopVetorial(Pilha* aux, int contex,int elem,ListaVar* lst) {
 		}
 		strcpy(var,aux->topo->valor);
 		elem = pop(aux);
-	}	
+	}
 	return lst;
 }
 
 int executaAnaliseSemantica(Pilha* p)
 {
 	int contexto = 0,elem;
-	ListaVar* lst; 
-	lst = criaListaVar(); 
-	
+	ListaVar* lst;
+	lst = criaListaVar();
+
 	do{
 		elem = pop(p);
 		if(elem == DECLAREnmjikn,lmjhgfgbhkjhytrrhjkjhyt) {
@@ -1146,7 +1122,7 @@ int executaAnaliseSemantica(Pilha* p)
 		else if(elem == IF) {
 			contexto++;
 			lst = verificaDesvioLoop(p,contexto,elem,lst);
-			if(lst==NULL){ 
+			if(lst==NULL){
 				return 0;
 			}
 		}
@@ -1156,7 +1132,7 @@ int executaAnaliseSemantica(Pilha* p)
 			if(lst==NULL) return 0;
 		}
 		else if(elem == FECHA_COLCHETE) {
-			removeContexto(lst,contexto); 
+			removeContexto(lst,contexto);
 			contexto--;
 		}
 		else if(elem == FOR) {
@@ -1173,37 +1149,37 @@ int executaAnaliseSemantica(Pilha* p)
 			lst = verificaIo(p,contexto,elem,lst);
 			if(lst==NULL) return 0;
 		}
-		
+
 	} while(!vazia(p));
 	libera(p);
-	
+
 	return 1;
-	
+
 }
 
 int main(int argc, char **argv) {
 	int fp;
 	int tamanho = (int)strlen(argv[1]); //Obtem tamanho do argumento argv[1] e realiza um cast pra int.
 	char *fNome = (char*)malloc(sizeof(char)*tamanho);//Aloca na memória um espaço com o tamanho do argv[1].
-	int fSize; 
+	int fSize;
 	int fread;
-	
-	
-	
+
+
+
 	strcpy(fNome,argv[1]);//Copia o nome do argv[1] para o ponteiro fNome.
 	fp = open(fNome, O_RDONLY);//Abre o arquivo de entrada.
-	
+
 	struct stat st;
 	stat(fNome, &st);
 	fSize =  (int)st.st_size;//Obtem tamanho do arquivo lido, que será a quantidade de caracteres do programa.
-	
+
 	char *programa = (char*)malloc(sizeof(char)*fSize);
-	
+
 	fread = (int)read(fp,programa, fSize);
-	
+
 	if(fread < 0)
 		exit(1);
-	
+
 	close(fp);
 
 	if(verificaArquivo(programa, fSize)==1)
@@ -1221,6 +1197,6 @@ int main(int argc, char **argv) {
 	}
 	else
 		printf("ARQUIVO INVÁLIDO!\n");
-		
+
 	return 0;
 }
